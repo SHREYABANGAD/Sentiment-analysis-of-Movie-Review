@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Sentiment Analysis</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .trending-movie {
+        margin-bottom: 20px;
+        transition: transform 0.3s;
+      }
+      .trending-movie:hover {
+        transform: scale(1.05);
+      }
+      .movie-poster {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .movie-title {
+        margin-top: 8px;
+        font-size: 14px;
+        text-align: center;
+        color: #333;
+      }
+      .trending-section {
+        margin-top: 40px;
+      }
+      .trending-header {
+        margin-bottom: 20px;
+        color: #333;
+        text-align: center;
+      }
+      .movie-link {
+        text-decoration: none;
+      }
+      .movie-link:hover {
+        text-decoration: none;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1 class="text-center mb-4">Movie Sentiment Analysis</h1>
+      </header>
+      <main>
+        <div class="form-container">
+          <form method="POST" action="/" class="search-form mb-5">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="letterboxd_url"
+                name="letterboxd_url"
+                placeholder="Enter Movie Title"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              Analyze Sentiment
+            </button>
+          </form>
+
+          {% if error %}
+          <div class="alert alert-danger mt-4">{{ error }}</div>
+          {% endif %}
+
+          <div class="trending-section">
+            <h2 class="trending-header">Top Rated Movies</h2>
+            <div class="row">
+              {% for movie in trending_movies %}
+              <div class="col-6 col-md-3">
+                <div class="trending-movie">
+                  <form
+                    method="POST"
+                    action="/"
+                    id="movie-form-{{ loop.index }}"
+                  >
+                    <input
+                      type="hidden"
+                      name="letterboxd_url"
+                      value="{{ movie.link }}"
+                    />
+                    <a
+                      href="{{movie.link}}"
+                      onclick="document.getElementById('movie-form-{{ loop.index }}').submit(); return false;"
+                      class="movie-link"
+                    >
+                      <img
+                        src="{{ movie.image }}"
+                        alt="{{ movie.title }}"
+                        class="movie-poster"
+                      />
+                      <p class="movie-title">{{ movie.title }}</p>
+                    </a>
+                  </form>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

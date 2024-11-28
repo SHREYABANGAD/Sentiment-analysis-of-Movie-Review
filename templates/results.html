@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMDb Sentiment Results</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <style>
+      body {
+        background-color: #141414;
+        color: #ffffff;
+      }
+      .card {
+        background-color: #181818;
+        border: none;
+      }
+      .card-title {
+        color: #e50914;
+      }
+      .btn-primary {
+        background-color: #e50914;
+        border-color: #e50914;
+      }
+      .btn-primary:hover {
+        background-color: #b20710;
+        border-color: #b20710;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-5">
+      <header class="text-center mb-5">
+        <h1 class="display-4 text-danger">
+          Sentiment Analysis for {{ movie }}
+        </h1>
+      </header>
+      <main>
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h2 class="card-title h3 mb-4">Movie Details</h2>
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    {% if poster != 'N/A' %}
+                    <img
+                      src="{{ poster }}"
+                      alt="{{ movie }} Poster"
+                      class="img-fluid rounded"
+                      style="max-width: 100%; height: auto"
+                    />
+                    {% else %}
+                    <p class="text-muted">No poster available.</p>
+                    {% endif %}
+                  </div>
+                  <div class="col-md-8">
+                    <p><strong>Year:</strong> {{ year }}</p>
+                    <p><strong>Rated:</strong> {{ rating }}</p>
+                    <p><strong>Genres:</strong> {{ genres }}</p>
+                    <p><strong>Director:</strong> {{ director }}</p>
+                    <p><strong>Writer:</strong> {{ writer }}</p>
+                    <p><strong>Actors:</strong> {{ actors }}</p>
+                    <p><strong>Language:</strong> {{ language }}</p>
+                    <p><strong>Country:</strong> {{ country }}</p>
+                    <p><strong>Awards:</strong> {{ awards }}</p>
+                    <p><strong>Box Office:</strong> {{ box_office }}</p>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <h3 class="h4">Plot</h3>
+                  <p>{{ plot }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h2 class="card-title h4">Sentiment Distribution</h2>
+				<a href="/interactive" target="_blank">
+                <img
+                  src="/static/sentiment_pie.png"
+                  class="img-fluid"
+                  alt="Sentiment Distribution"
+                />
+				</a>
+              </div>
+            </div>
+            <div class="card mb-4">
+              <div class="card-body">
+                <h2 class="card-title h4">Sentiment Count (Bar Chart)</h2>
+                <img
+                  src="/static/sentiment_bar.png"
+                  class="img-fluid"
+                  alt="Sentiment Count"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h2 class="card-title h4">Word Cloud</h2>
+                <img
+                  src="/static/wordcloud.png"
+                  class="img-fluid"
+                  alt="Word Cloud"
+                />
+              </div>
+            </div>
+            <div class="card mb-4">
+              <div class="card-body">
+                <h2 class="card-title h4">Polarity Distribution (Histogram)</h2>
+                <img
+                  src="/static/sentiment_histogram.png"
+                  class="img-fluid"
+                  alt="Polarity Distribution"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h2 class="card-title h4">Review Sentiment Breakdown</h2>
+                <p>Total Reviews Analyzed: {{ total }}</p>
+                <ul class="list-unstyled">
+                  <li>Positive Reviews: {{ positive }}</li>
+                  <li>Neutral Reviews: {{ neutral }}</li>
+                  <li>Negative Reviews: {{ negative }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+                
+               <div class="similar-movies-section mt-5"></div>
+    <h3>Similar Movies You Might Like</h3>
+    <div class="row">
+        {% for movie in similar_movies %}
+        <div class="col-md-2 mb-4">
+            <div class="similar-movie-card">
+                <a href="{{ movie.url }}" target="_blank">
+                    {% if movie.poster %}
+                    <img src="{{ movie.poster }}" class="img-fluid rounded" alt="{{ movie.title }}">
+                    {% endif %}
+                    <div class="movie-info mt-2">
+                        <h5 class="movie-title">{{ movie.title }}</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div> 
+        </div>
+        <div class="text-center mt-4">
+          <a href="/" class="btn btn-primary btn-lg">Analyze Another Movie</a>
+        </div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

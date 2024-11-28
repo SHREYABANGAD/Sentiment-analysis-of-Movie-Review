@@ -1,0 +1,185 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #141414;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #000000;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #e50914;
+    text-align: center;
+    margin: 0;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #333333;
+    border: none;
+    color: #ffffff;
+}
+
+.btn-primary {
+    background-color: #e50914;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #f40612;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.movie-details {
+    display: flex;
+    gap: 20px;
+}
+
+.movie-poster {
+    max-width: 100%;
+    height: auto;
+}
+
+.info p {
+    margin: 5px 0;
+}
+
+.plot,
+.sentiment-analysis {
+    grid-column: span 2;
+}
+
+.sentiment-bars {
+    margin-top: 20px;
+}
+
+.sentiment-bar {
+    margin-bottom: 10px;
+}
+
+.bar-container {
+    background-color: #333333;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
+
+.positive {
+    background-color: #4CAF50;
+}
+
+.neutral {
+    background-color: #FFC107;
+}
+
+.negative {
+    background-color: #b30f00;
+}
+
+.sentiment-percentage {
+    margin-left: 10px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.similar-movies-section {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.similar-movie-card {
+    transition: transform 0.2s;
+}
+
+.similar-movie-card:hover {
+    transform: scale(1.05);
+}
+
+.similar-movie-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.movie-info {
+    text-align: center;
+}
+
+.movie-title {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    color: white;
+}
+
+.movie-year {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .movie-details {
+        flex-direction: column;
+    }
+
+    .plot,
+    .sentiment-analysis {
+        grid-column: span 1;
+    }
+}
