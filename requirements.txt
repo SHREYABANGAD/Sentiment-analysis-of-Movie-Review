@@ -1,0 +1,11 @@
+Flask
+BeautifulSoup4
+requests
+textblob
+matplotlib
+seaborn
+wordcloud
+IMDbPY
+plotly
+
+
